@@ -1,3 +1,11 @@
 <h1>
-  {{title}}
+  <dadcrud [options]='filters' ></dadcrud>
+  <div></div>
+
+    <ul>
+        <li *ngFor="let option of filters; let i=index">
+            {{ option.name }}
+            {{option.attribute}}
+        </li>
+    </ul>
 </h1>

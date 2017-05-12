@@ -1,0 +1,37 @@
+
+  .box1 {
+    border: solid 1px #006699;
+    padding: 20px;
+    background: #f3f3f3;
+    border-radius: 5px;
+  }
+
+  .options input.textfield {
+    width: 480px;
+    height: 36px;
+    margin-right: 20px;
+    font-size: 1.4em;
+    vertical-align: top;
+  }
+
+  .options input.checkbox {
+    width: 20px;
+    height: 20px;
+  }
+
+  .options .checked {
+    text-decoration: line-through;
+  }
+
+  .options button {
+    height: 36px;
+    font-size: 1.1em;
+    vertical-align: top;
+    border: solid 1px #999;
+    border-radius: 2px;
+  }
+
+  .options .delete-icon {
+    diplay: inline-block;
+    cursor: pointer;
+  }
