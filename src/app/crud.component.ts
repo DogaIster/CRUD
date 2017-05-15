@@ -10,49 +10,57 @@ import { DadFilter } from './app.component';
     selector: 'dadcrud',
     template: `
       <div class="combobox">
-          <div>
-              <form (submit)="addNewOption($event)">
-                    <div><input style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Filter Name"></div>
-                    <div><input style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Filter Expression"></div>
-                    <button  type="submit">Add</button>
-              </form>
+          
+          <div *ngIf="addValue">
+            <div><input style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Option Name"></div>
+            <div><input style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Option Expression"></div>
+            <button (click)="addNewOption($event)" type="submit">Add</button> 
           </div>     
+          
+           <div *ngIf="updateValue">
+                 <div><input style="height:32px;" [(ngModel)]="updatedOptionName" type="text" placeholder="New Option Name"></div>
+                 <div><input style="height:32px;" [(ngModel)]="updatedOptionAttribute" type="text" placeholder="New Option Expression"></div>
+                 <button (click)="updateSelected()">Apply</button>
+                 <button (click)="update()">Cancel</button>
+           </div>        
       
-          <ul>
-              <li *ngFor="let option of options; let i=index">
-                  <input type="checkbox" [(ngModel)]="newOption.completed" />
-                  <span [ngClass]="{'checked': newOption.completed}">{{ option.name }}</span>
-                  <span (click)="deleteOption(i)" class="glyphicons glyphicons-bin">[x]</span>
-              </li>
-          </ul>      
+          <select (click)="addOption" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
+            <option style="color:black;" *ngFor="let option of options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
+            <option> <button (click)="select()" style="color:black;" value="{{-1}}" >Add Filter </button></option>
+<!--<option (click)="deleteOption(i)" class="delete-icon">[X]</option>-->
+          </select>     
+          
+            <button (click)="add()">Add New Option</button>
+            <button (click)="deleteOption(i)">Delete</button>
+            <button (click)="update()">Update</button>
+       
+                                        
+
       </div>
+     
     `,
     styleUrls: ['crud.css']
 })
 
 export class DadCrudComponent {
 
-    newOption: string;
     addOption?: boolean = false;
     editTheOption?: boolean = false
     optionName?: any;
     optionAttribute?: any;
-    editedOptionName?:any;
-    editedOptionAttribute?:any;
+    updatedOptionName?:any;
+    updatedOptionAttribute?:any;
+    addNew?: boolean = false;
+    updateValue: boolean = false;
+    addValue: boolean = false;
 
   @Input()
-
     options: any;
     option: any;
-    editedOption: any;
 
-    constructor() {
-        this.newOption = '';
-        this.options = [];
-    }
+    constructor() {}
 
     addNewOption(event) {
-      this.addOption = false;
       if(!this.options){
         this.options=[];
       }
@@ -61,13 +69,26 @@ export class DadCrudComponent {
         attribute: this.optionAttribute
       };
       this.options.push(this.option);
+      this.addValue = false;
     }
 
-    editOption(o){
-      this.addOption = false;
-      this.editTheOption = false;
+    updateSelected() {
+      this.updateValue;
       this.deleteOption(this.option);
-      this.options.push({name: this.editedOptionName, attribute: this.editedOptionAttribute});
+      this.options.push({name: this.updatedOptionName, attribute: this.updatedOptionAttribute});
+      this.option.name = this.updatedOptionName;
+      this.option.attribute = this.updatedOptionAttribute;
+      this.updateValue = false;
+    }
+
+    update(){
+      if (!this.updateValue) this.updateValue = true;
+      else this.updateValue = false;
+    }
+
+    add(){
+      if (!this.addValue) this.addValue = true;
+      else this.addValue = false;
     }
 
     deleteOption(index) {

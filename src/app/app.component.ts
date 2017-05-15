@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
   filters: DadFilter[];
 
 	ngOnInit (){
-		this.filters = [{name:'a'}, {name:'a'}, {name:'a'}];
+		this.filters = [];
 	}
 }
 
