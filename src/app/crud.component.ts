@@ -20,11 +20,11 @@ import { DadFilter } from './app.component';
            <div *ngIf="updateValue">
                  <div><input style="height:32px;" [(ngModel)]="updatedOptionName" type="text" placeholder="New Option Name"></div>
                  <div><input style="height:32px;" [(ngModel)]="updatedOptionAttribute" type="text" placeholder="New Option Expression"></div>
-                 <button (click)="updateSelected()">Apply</button>
+                 <button (click)="updateSelected(selectedOption.value)">Apply</button>
                  <button (click)="update()">Cancel</button>
            </div>        
       
-          <select (click)="addOption" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
+          <select  #selectedOption (click)="addOption" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
             <option style="color:black;" *ngFor="let option of options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
             <option> <button (click)="select()" style="color:black;" value="{{-1}}" >Add Filter </button></option>
 <!--<option (click)="deleteOption(i)" class="delete-icon">[X]</option>-->
@@ -60,6 +60,7 @@ export class DadCrudComponent {
 
     constructor() {}
 
+
     addNewOption(event) {
       if(!this.options){
         this.options=[];
@@ -72,12 +73,12 @@ export class DadCrudComponent {
       this.addValue = false;
     }
 
-    updateSelected() {
+    updateSelected(selected_option) {
+
+      alert(selected_option);
       this.updateValue;
-      this.deleteOption(this.option);
-      this.options.push({name: this.updatedOptionName, attribute: this.updatedOptionAttribute});
-      this.option.name = this.updatedOptionName;
-      this.option.attribute = this.updatedOptionAttribute;
+      this.options[selected_option].name = this.updatedOptionName;
+      this.options[selected_option].attribute = this.updatedOptionAttribute;
       this.updateValue = false;
     }
 
@@ -91,8 +92,9 @@ export class DadCrudComponent {
       else this.addValue = false;
     }
 
-    deleteOption(index) {
-        this.options.splice(index, 1);
+    deleteOption(item) {
+      let index = this.options.indexOf(item);
+      this.options.splice(index, 1);
     }
 /*
     deleteSelectedOptions() {
