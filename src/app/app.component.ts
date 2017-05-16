@@ -5,17 +5,31 @@ export interface DadFilter{
   name?:any
 }
 
-
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h1>
+      <dadcrud [model]='model' ></dadcrud>
+    
+    <div *ngIf="model.option">  selected: {{model.option.name}}  {{model.option.attribute}} </div>
+    
+    
+        <ul>
+            <li *ngFor="let option of model.options; let i=index">
+                {{ option.name }}
+                {{option.attribute}}
+            </li>
+        </ul>
+    </h1>
+`,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  filters: DadFilter[];
+  model: {option:DadFilter, options: DadFilter[]}
+
 
 	ngOnInit (){
-		this.filters = [];
+    this.model = {options: [], option:null};
 	}
 }
 
