@@ -11,18 +11,18 @@ import { DadFilter } from './app.component';
     template: `
       <div class="combobox">
 
-          <select  #selectedOption (change)="add($event.target.value);" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
-            <option style="color:black;" *ngFor="let option of model.options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
+          <select #selectedOption (change)="add($event.target.value);" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
+             <option style="color:black;" *ngFor="let option of model.options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
              <option style="color:black;" value="{{-2}}" ></option>
-             <option style="color:black;" value="{{-1}}" >Add Option</option> 
+             <option  id="selection" style="color:black;" value="{{-1}}" >Add Option</option> 
           </select>     
 
           
           <div *ngIf="addValue">
-            <div><input style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Option Name"></div>
-            <div><input style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Option Expression"></div>
-            <button (click)="addNewOption($event)" type="submit">Add</button> 
-            <button (click)="add()">Cancel</button>
+            <div id="optionName"><input style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Option Name"></div>
+            <div id="optionAttribute"><input style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Option Expression"></div>
+            <button id="addNewOption" (click)="addNewOption($event)" type="submit">Add</button> 
+            <button (click)="add(-1)">Cancel</button>
           </div>     
           
           <div *ngIf="updateValue">
@@ -35,7 +35,6 @@ import { DadFilter } from './app.component';
           
             <button (click)="update()">Update</button>
       </div>
-     
     `,
 })
 

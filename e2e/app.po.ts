@@ -1,11 +1,9 @@
 import { browser, element, by } from 'protractor';
+import { DadCrudComponent } from '../src/app/crud.component';
 
-export class CrudPage {
-  navigateTo() {
-    return browser.get('/');
-  }
+export class CrudPage{
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  static getDropdownOnThePage() {
+    return element.all(by.css('combobox'))
   }
 }
