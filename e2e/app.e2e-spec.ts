@@ -4,6 +4,7 @@ import {browser, Ptor, wrapDriver} from "protractor";
 import { protractor, element, by } from 'protractor';
 import { DadCrudComponent } from '../src/app/crud.component';
 import webdriver = require("selenium-webdriver");
+import {Action} from "rxjs/scheduler/Action";
 
 let sleep = function(){browser.sleep(1000)};
 
@@ -24,9 +25,10 @@ describe('Crud Elements', () => {
   it('Should see if the Add Option button is there', () => {
     browser.get('http://localhost:5000');
     expect(element(by.id('selection')).getText()).toEqual('Add Option');
+    browser.sleep(2000);
   });
 
-  it('Should click the Add Option', () => {
+  it('Should choose the Add Option', () => {
     browser.get('http://localhost:5000');
     let optionNum = 1;
     if(optionNum){
@@ -34,34 +36,60 @@ describe('Crud Elements', () => {
         options[optionNum].click();
       });
       expect(element(by.id('selection')).getText()).toEqual('Add Option');
+      browser.sleep(2000);
     }
   });
 
-  it('Should fill the boxes and submi t', () => {
-  //  let optionNameNew = element(by.id('optionName'));
-  //  let optionAttributeNew = element(by.id('optionAttribute'));
-  //  let submit = element(by.id('addNewOption'));
-    browser.get('http://localhost:5000');
-
-    /*optionNameNew.click();
-    optionNameNew.sendKeys('Doga');
-    optionAttributeNew.click();
-    optionAttributeNew.sendKeys('Awesome');
-    submit.click();
-*/
-
-
-    let name =  element(by.id('optionName'));
-    name.click();
-
-    let input =  name.element(by.css('input'));
-    input.click();
-    input.sendKeys('Doga');
-
-    expect(input.getText()).toEqual('Doga');
+  it('Should fill the boxes and create', () => {
+    let optionName = element(by.id('optionName'));
+    let optionAttribute = element(by.id('optionAttribute'));
+    let addButton = element(by.id('addNewOption'));
+    let created = element(by.id('created'));
+    optionName.sendKeys('Doga');
+    browser.sleep(2000);
+    optionAttribute.sendKeys('is awesome');
+    browser.sleep(2000);
+    addButton.click();
+    expect(created.getText()).toEqual('Doga');
+    browser.sleep(2000);
   });
 
+  it('Should change the values in the boxes and update', () => {
+    let updatedOptionName = element(by.id('updatedOptionName'));
+    let updatedOptionAttribute = element(by.id('updatedOptionAttribute'));
+    let updateButton = element(by.id('apply'));
+    let created = element(by.id('created'));
+    let editButton = element(by.id('edit'));
 
+    editButton.click();
+    updatedOptionName.sendKeys('Varun');
+    browser.sleep(2000);
+    updatedOptionAttribute.sendKeys('sucks');
+    browser.sleep(2000);
+    updateButton.click();
+    expect(created.getText()).toEqual('Varun');
+    browser.sleep(2000);
+  });
+
+  it('Should be able to delete the selected option', () => {
+    let editButton = element(by.id('edit'));
+    let deleteButton = element(by.id('delete'));
+
+    editButton.click();
+    browser.sleep(2000);
+    deleteButton.click();
+    browser.sleep(2000);
+  });
+
+  it('Should be able to cancel the edit', () => {
+    let editButton = element(by.id('edit'));
+    let cancelButton = element(by.id('cancel'));
+
+    editButton.click();
+    browser.sleep(2000);
+    cancelButton.click();
+    browser.sleep(2000);
+  });
 });
 
 

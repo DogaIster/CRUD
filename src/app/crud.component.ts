@@ -12,28 +12,28 @@ import { DadFilter } from './app.component';
       <div class="combobox">
 
           <select #selectedOption (change)="add($event.target.value);" class="form-control" style="display: inline-block; color:black; font-weight: bold; max-width:150px;" >
-             <option style="color:black;" *ngFor="let option of model.options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
-             <option style="color:black;" value="{{-2}}" ></option>
+             <option id="created" style="color:black;" *ngFor="let option of model.options; let i=index" value="{{i}}" [selected]="option.name" >{{ option.name }}</option>
+             <option style="color:black;" value="{{-2}}"></option>
              <option  id="selection" style="color:black;" value="{{-1}}" >Add Option</option> 
           </select>     
 
           
           <div *ngIf="addValue">
-            <div id="optionName"><input style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Option Name"></div>
-            <div id="optionAttribute"><input style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Option Expression"></div>
+            <div><input id="optionName" style="height:32px;" [(ngModel)]="optionName" type="text" placeholder="Option Name"></div>
+            <div><input id="optionAttribute" style="height:32px;" [(ngModel)]="optionAttribute" type="text" placeholder="Option Expression"></div>
             <button id="addNewOption" (click)="addNewOption($event)" type="submit">Add</button> 
             <button (click)="add(-1)">Cancel</button>
           </div>     
           
           <div *ngIf="updateValue">
-            <div><input style="height:32px;" [(ngModel)]="updatedOptionName" type="text" placeholder="New Option Name"></div>
-            <div><input style="height:32px;" [(ngModel)]="updatedOptionAttribute" type="text" placeholder="New Option Expression"></div>
-            <button (click)="updateSelected(selectedOption.value)">Apply</button>
-            <button (click)="deleteOption(i)">Delete</button>
-            <button (click)="update()">Cancel</button>
+            <div><input id="updatedOptionName" style="height:32px;" [(ngModel)]="updatedOptionName" type="text" placeholder="New Option Name"></div>
+            <div><input id="updatedOptionAttribute" style="height:32px;" [(ngModel)]="updatedOptionAttribute" type="text" placeholder="New Option Expression"></div>
+            <button id='apply' (click)="updateSelected(selectedOption.value)">Apply</button>
+            <button id='delete' (click)="deleteOption(i)">Delete</button>
+            <button id='cancel' (click)="update()">Cancel</button>
           </div>
           
-            <button (click)="update()">Update</button>
+            <button id='edit' (click)="update()">Edit</button>
       </div>
     `,
 })
@@ -87,6 +87,7 @@ export class DadCrudComponent {
 
     deleteOption(selected_option) {
       this.model.options.splice(selected_option, 1);
+      this.updateValue = false;
     }
 /*
     deleteSelectedOptions() {
