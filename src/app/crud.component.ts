@@ -29,7 +29,7 @@ import { DadFilter } from './app.component';
             <div><input id="updatedOptionName" style="height:32px;" [(ngModel)]="updatedOptionName" type="text" placeholder="New Option Name"></div>
             <div><input id="updatedOptionAttribute" style="height:32px;" [(ngModel)]="updatedOptionAttribute" type="text" placeholder="New Option Expression"></div>
             <button id='apply' (click)="updateSelected(selectedOption.value)">Apply</button>
-            <button id='delete' (click)="deleteOption(i)">Delete</button>
+            <button id='delete' (click)="deleteOption(selectedOption.value)">Delete</button>
             <button id='cancel' (click)="update()">Cancel</button>
           </div>
           
@@ -89,14 +89,5 @@ export class DadCrudComponent {
       this.model.options.splice(selected_option, 1);
       this.updateValue = false;
     }
-/*
-    deleteSelectedOptions() {
-        //need ES5 to reverse loop in order to splice by index
-        for(let i=(this.options.length -1); i > -1; i--) {
-            if(this.options[i].completed) {
-                this.options.splice(i, 1);
-            }
-        }
-    }
-*/
+
 }

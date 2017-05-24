@@ -11,13 +11,13 @@ export interface DadFilter{
     <h1>
       <dadcrud [model]='model' ></dadcrud>
     
-    <div *ngIf="model.option">  selected: {{model.option.name}}  {{model.option.attribute}} </div>
+    <div *ngIf="model.option"></div>
     
     
         <ul>
             <li *ngFor="let option of model.options; let i=index">
-                {{ option.name }}
-                {{option.attribute}}
+                Name: {{ option.name }} <br/>
+                Attribute: {{option.attribute}}
             </li>
         </ul>
     </h1>
