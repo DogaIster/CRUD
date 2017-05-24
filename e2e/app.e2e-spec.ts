@@ -62,9 +62,9 @@ describe('Crud Elements', () => {
     let editButton = element(by.id('edit'));
 
     editButton.click();
-    updatedOptionName.sendKeys('Varun');
+    updatedOptionName.sendKeys('Pablo');
     browser.sleep(2000);
-    updatedOptionAttribute.sendKeys('sucks');
+    updatedOptionAttribute.sendKeys('loves you.');
     browser.sleep(2000);
     updateButton.click();
     expect(created.getText()).toEqual('Varun');
